@@ -12,7 +12,10 @@ def wordDef(inpKey):
 
     elif inpKey.title() in dictCon:
         return dictCon[inpKey.title()]
-        
+
+    elif inpKey.upper() in dictCon:
+        return dictCon[inpKey.upper()]
+
     elif len(get_close_matches(inpKey, dictCon.keys(), n=1, cutoff=0.8)):
 
         probWord = get_close_matches(inpKey, dictCon.keys(), n=1, cutoff=0.8)[0]
