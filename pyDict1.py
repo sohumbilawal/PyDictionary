@@ -1,15 +1,18 @@
+import json
+dictCon = json.load(open("data.json"))
+
+from difflib import get_close_matches
+
 def wordDef(inpKey):
     inpKey = inpKey.lower()
-
-    import json
-    dictCon = json.load(open("data.json"))
-
-    from difflib import get_close_matches
 
     if inpKey in dictCon:
 
         return dictCon[inpKey] #This produces an output.
 
+    elif inpKey.title() in dictCon:
+        return dictCon[inpKey.title()]
+        
     elif len(get_close_matches(inpKey, dictCon.keys(), n=1, cutoff=0.8)):
 
         probWord = get_close_matches(inpKey, dictCon.keys(), n=1, cutoff=0.8)[0]
@@ -30,4 +33,10 @@ def wordDef(inpKey):
 
 userWord = input("Enter a word to get its definition: ")
 
-print(wordDef(userWord))
+output = wordDef(userWord)
+
+if type(output) == list:
+    for item in output:
+        print("\n" + item + "\n")
+else:
+    print(output)
